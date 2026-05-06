@@ -9,9 +9,20 @@ const admin = require('firebase-admin');
 // ──────────────────────────────────────────────
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+  try {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+  } catch (err) {
+    console.error("❌ ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON.");
+    process.exit(1);
+  }
 } else {
-  serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH || './serviceAccountKey.json');
+  try {
+    serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_PATH || './serviceAccountKey.json');
+  } catch (err) {
+    console.error("❌ ERROR: Could not find serviceAccountKey.json!");
+    console.error("If you are deploying to Render, you MUST add an Environment Variable named FIREBASE_SERVICE_ACCOUNT_JSON with the contents of your key file.");
+    process.exit(1);
+  }
 }
 
 admin.initializeApp({
