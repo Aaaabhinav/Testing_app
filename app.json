@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.abhinav.taskflow"
+      "bundleIdentifier": "com.abhinav.taskflow",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -27,11 +30,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [],
     "extra": {
       "eas": {
-        "projectId": "YOUR_EAS_PROJECT_ID"
+        "projectId": "d374e8a7-9d28-4836-a5db-467eb300fa65"
       }
-    },
-    "plugins": []
+    }
   }
 }

@@ -1,11 +1,6 @@
-// PostgreSQL Database Configuration
-// This connects to a PostgreSQL backend via REST API
-// For production, deploy a simple Express + PostgreSQL API
-
-const API_BASE_URL = 'https://testing-app-3.onrender.com/api'; // Live Render Production Backend
+const API_BASE_URL = 'https://testing-app-3.onrender.com/api';
 
 export const todoAPI = {
-  // Fetch all todos for a user
   async getTodos(userId, token) {
     const response = await fetch(`${API_BASE_URL}/todos?userId=${userId}`, {
       headers: {
@@ -17,7 +12,6 @@ export const todoAPI = {
     return response.json();
   },
 
-  // Create a new todo
   async createTodo(userId, title, token) {
     const response = await fetch(`${API_BASE_URL}/todos`, {
       method: 'POST',
@@ -31,7 +25,6 @@ export const todoAPI = {
     return response.json();
   },
 
-  // Toggle todo completion
   async toggleTodo(todoId, completed, token) {
     const response = await fetch(`${API_BASE_URL}/todos/${todoId}`, {
       method: 'PATCH',
@@ -45,7 +38,6 @@ export const todoAPI = {
     return response.json();
   },
 
-  // Delete a todo
   async deleteTodo(todoId, token) {
     const response = await fetch(`${API_BASE_URL}/todos/${todoId}`, {
       method: 'DELETE',
@@ -57,20 +49,4 @@ export const todoAPI = {
     if (!response.ok) throw new Error('Failed to delete todo');
     return response.json();
   },
-
-  // Update todo title
-  async updateTodo(todoId, title, token) {
-    const response = await fetch(`${API_BASE_URL}/todos/${todoId}`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title }),
-    });
-    if (!response.ok) throw new Error('Failed to update todo');
-    return response.json();
-  },
 };
-
-export { API_BASE_URL };
